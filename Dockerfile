@@ -21,7 +21,7 @@ run mkdir /usr/local/go/pkg/linux_amd64_dynlink && \
 
 user main
 
-env GOPATH $HOME/gopath
+env GOPATH $HOME/go
 env PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 run go get golang.org/x/tools/cmd/goimports && \
