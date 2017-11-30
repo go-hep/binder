@@ -30,7 +30,9 @@ run go get golang.org/x/tools/cmd/goimports && \
 	go get gonum.org/v1/gonum/...
 
 # install the Go kernel
-run git clone https://github.com/neugram/binder $HOME/.local/share/jupyter/kernels/neugram
+run git clone https://github.com/neugram/binder && \
+	cp -r ./binder/neugram $HOME/.local/share/jupyter/kernels/. && \
+	/bin/rm -rf ./binder
 
 copy ./examples $HOME/notebooks
 
