@@ -1,0 +1,4 @@
+curl
+git
+pkg-config
+mercurial

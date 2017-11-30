@@ -1,0 +1,64 @@
+#!/bin/bash
+
+set -e
+
+GOVERS=1.9.2
+
+mkdir -p \
+	$HOME/.local/go/$GOVERS \
+	$HOME/go
+
+## install Go
+curl -O -L https://golang.org/dl/go${GOVERS}.linux-amd64.tar.gz
+tar -C $HOME/.local/go/$GOVERS -zxf go${GOVERS}.linux-amd64.tar.gz
+/bin/rm go${GOVERS}.linux-amd64.tar.gz
+
+export GOROOT=$HOME/.local/go/$GOVERS/go
+export GOPATH=$HOME/go/path
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+## install interesting packages
+echo "::: installing neugram, go-hep and gonum..."
+go get golang.org/x/tools/cmd/goimports
+go get neugram.io/ng/...
+go get go-hep.org/x/hep/...
+go get gonum.org/v1/gonum/...
+echo "::: installing neugram, go-hep and gonum... [done]"
+
+## setup environment for Go
+
+cat >> $HOME/.setup-go << EOF
+## setup Go
+export GOROOT=$GOROOT
+export GOPATH=$GOPATH
+export PATH=\$GOPATH/bin:\$GOROOT/bin:\$PATH
+EOF
+
+cat >> $HOME/.bashrc << EOF
+. ~/.setup-go
+EOF
+
+## install the Go kernel
+git clone https://github.com/neugram/binder
+cat >| ./binder/neugram/kernel.json << EOF
+{
+    "argv": [
+        "$GOPATH/bin/ng", "-jupyter",
+        "{connection_file}"
+    ],
+    "display_name": "Neugram",
+    "language": "neugram",
+    "name": "ng",
+    "env": {
+        "GOPATH": "$GOPATH",
+        "GOROOT": "$GOROOT",
+        "PATH":   "$GOPATH/bin:$GOROOT/bin:$PATH"
+	}
+}
+EOF
+jupyter kernelspec install ./binder/neugram --user
+
+/bin/rm -rf binder
+
+echo "::: kernel list"
+jupyter kernelspec list
