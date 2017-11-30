@@ -32,7 +32,7 @@ run go get golang.org/x/tools/cmd/goimports && \
 # install the Go kernel
 run git clone https://github.com/neugram/binder $HOME/.local/share/jupyter/kernels/neugram
 
-run mkdir -p $HOME/notebooks
+copy ./examples $HOME/notebooks
 
 user root
 run chown -R main:main /home/main/notebooks
