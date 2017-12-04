@@ -35,6 +35,7 @@ run git clone https://github.com/neugram/binder && \
 	/bin/rm -rf ./binder
 
 copy ./examples $HOME/notebooks
+copy ./hep-version $HOME/.
 
 user root
 run chown -R main:main /home/main/notebooks
