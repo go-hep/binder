@@ -24,6 +24,9 @@ user main
 env GOPATH $HOME/go
 env PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
+## make sure we invalid the cache
+copy ./hep-version $HOME/.
+
 run go get golang.org/x/tools/cmd/goimports && \
 	go get neugram.io/ng/... && \
 	go get go-hep.org/x/hep/... && \
@@ -35,7 +38,6 @@ run git clone https://github.com/neugram/binder && \
 	/bin/rm -rf ./binder
 
 copy ./examples $HOME/notebooks
-copy ./hep-version $HOME/.
 
 user root
 run chown -R main:main /home/main/notebooks
