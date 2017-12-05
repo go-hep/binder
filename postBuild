@@ -14,7 +14,7 @@ tar -C $HOME/.local/go/$GOVERS -zxf go${GOVERS}.linux-amd64.tar.gz
 /bin/rm go${GOVERS}.linux-amd64.tar.gz
 
 export GOROOT=$HOME/.local/go/$GOVERS/go
-export GOPATH=$HOME/go/path
+export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 ## install interesting packages
