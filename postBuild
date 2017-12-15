@@ -8,7 +8,11 @@ mkdir -p \
 	$HOME/.local/go/$GOVERS \
 	$HOME/go
 
-## install Go
+echo "::: download data"
+mkdir -p $HOME/examples/testdata
+curl -L http://data.astropy.org/tutorials/FITS-images/HorseHead.fits > $HOME/examples/testdata/HorseHead.fits
+
+echo "::: install Go ${GOVERS}..."
 curl -O -L https://golang.org/dl/go${GOVERS}.linux-amd64.tar.gz
 tar -C $HOME/.local/go/$GOVERS -zxf go${GOVERS}.linux-amd64.tar.gz
 /bin/rm go${GOVERS}.linux-amd64.tar.gz
@@ -20,7 +24,7 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 ## install interesting packages
 echo "::: installing neugram, go-hep and gonum..."
 go get golang.org/x/tools/cmd/goimports
-git clone -b jupyter-display-data https://github.com/sbinet-gonum/ng $GOPATH/src/neugram.io/ng
+#git clone -b jupyter-display-data https://github.com/sbinet-gonum/ng $GOPATH/src/neugram.io/ng
 go get neugram.io/ng/...
 go get go-hep.org/x/hep/...
 go get gonum.org/v1/gonum/...
