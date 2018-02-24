@@ -2,7 +2,7 @@
 
 set -e
 
-GOVERS=1.9.3
+GOVERS=1.10
 
 mkdir -p \
 	$HOME/.local/go/$GOVERS \
