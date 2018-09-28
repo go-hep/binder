@@ -1,4 +1,9 @@
+build-essential
+ca-certificates
 curl
+gcc
 git
-pkg-config
+libzmq3-dev
 mercurial
+pkg-config
+python3-pip
