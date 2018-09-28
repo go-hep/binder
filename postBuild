@@ -22,14 +22,15 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 ## install interesting packages
-echo "::: installing neugram, go-hep and gonum..."
+echo "::: installing gophernotes, go-hep and gonum..."
 go get golang.org/x/tools/cmd/goimports
 #git clone -b jupyter-display-data https://github.com/sbinet-gonum/ng $GOPATH/src/neugram.io/ng
-go get neugram.io/ng/...
+go get github.com/gopherdata/gophernotes
 go get go-hep.org/x/hep/...
 go get gonum.org/v1/gonum/...
+go get gonum.org/v1/plot/...
 go get github.com/astrogo/fitsio
-echo "::: installing neugram, go-hep and gonum... [done]"
+echo "::: installing gophernotes, go-hep and gonum... [done]"
 
 ## setup environment for Go
 
@@ -45,24 +46,24 @@ cat >> $HOME/.bashrc << EOF
 EOF
 
 ## install the Go kernel
-git clone https://github.com/neugram/binder
-cat >| ./binder/neugram/kernel.json << EOF
+mkdir -p ./binder/gophernotes
+cat >| ./binder/gophernotes/kernel.json << EOF
 {
     "argv": [
-        "$GOPATH/bin/ng", "-jupyter",
+        "$GOPATH/bin/gophernotes",
         "{connection_file}"
     ],
-    "display_name": "Neugram",
-    "language": "neugram",
-    "name": "ng",
+    "display_name": "Go",
+    "language": "go",
+    "name": "go",
     "env": {
         "GOPATH": "$GOPATH",
         "GOROOT": "$GOROOT",
         "PATH":   "$GOPATH/bin:$GOROOT/bin:$PATH"
-	}
+        }
 }
 EOF
-jupyter kernelspec install ./binder/neugram --user
+jupyter kernelspec install ./binder/gophernotes --user
 
 /bin/rm -rf binder
 
